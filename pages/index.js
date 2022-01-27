@@ -5,38 +5,9 @@ import {
   TextField,
   Image,
 } from "@skynexui/components";
+import React from "react";
+import { useRouter } from "next/router";
 import appConfig from "../config.json";
-
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: "Open Sans", sans-serif;
-      }
-      /* App fit Height */
-      html,
-      body,
-      #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */
-    `}</style>
-  );
-}
 
 function Title(props) {
   const Tag = props.tag || "h1";
@@ -55,11 +26,12 @@ function Title(props) {
 }
 
 export default function HomePage() {
-  const username = "peas";
+  const [username, setUsername] = React.useState("omariosouto");
+
+  const route = useRouter();
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: "flex",
@@ -67,7 +39,7 @@ export default function HomePage() {
           justifyContent: "center",
           backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage:
-            "url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)",
+            "url(https://a9p9n2x2.stackpathcdn.com/wp-content/blogs.dir/1/files/2016/02/BE_Sports-Football-Stadium.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
@@ -95,6 +67,10 @@ export default function HomePage() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (e) {
+              e.preventDefault();
+              route.push("/chat");
+            }}
             styleSheet={{
               display: "flex",
               flexDirection: "column",
@@ -117,6 +93,12 @@ export default function HomePage() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function (event) {
+                const valor = event.target.value;
+
+                setUsername(valor);
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -131,6 +113,7 @@ export default function HomePage() {
                 },
               }}
             />
+
             <Button
               type="submit"
               label="Entrar"
