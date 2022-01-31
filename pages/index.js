@@ -26,7 +26,7 @@ function Title(props) {
 }
 
 export default function HomePage() {
-  const [username, setUsername] = React.useState("omariosouto");
+  const [username, setUsername] = React.useState("mtitos");
 
   const route = useRouter();
 
@@ -69,7 +69,7 @@ export default function HomePage() {
             as="form"
             onSubmit={function (e) {
               e.preventDefault();
-              route.push("/chat");
+              route.push(`/chat?username=${username}`);
             }}
             styleSheet={{
               display: "flex",
